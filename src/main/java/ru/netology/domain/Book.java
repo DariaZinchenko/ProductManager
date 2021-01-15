@@ -22,4 +22,15 @@ public class Book extends Product{
         this.pages = pages;
         this.publishedYear = publishedYear;
     }
+
+    @Override
+    public boolean matches(String search) {
+        if (super.matches(search)) {
+            return true;
+        }
+        if (author.equalsIgnoreCase(search)) {
+            return true;
+        }
+        return false;
+    }
 }

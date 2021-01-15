@@ -13,4 +13,11 @@ public class Product {
     private int id;
     private String name;
     private long prise;
+
+    public boolean matches(String search) {
+        if (name.equalsIgnoreCase(search)) {
+            return true;
+        }
+        return false;
+    }
 }
