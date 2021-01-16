@@ -25,19 +25,21 @@ class ProductManagerTest {
 
     private Product first = new Book(1, "Book 1", 200, "Author 1", 140, 2017);
     private Product second = new Smartphone(2, "Smartphone 2", 15000, "Producer 2");
+    private Product third = new Book(3, "Book 1", 300, "Author 1", 374, 2020);
+    private Product fourth = new Smartphone(4, "Smartphone 2", 23735, "Producer 2");
 
     @ParameterizedTest(name = "{index} {0}")
     @CsvSource({
       "Find Book by name, Book 1",
       "Find Book by author, Author 1"})
     public void findBookSearchByTest(String testName, String text) {
-        Product[] returned = new Product[] {first, second};
+        Product[] returned = new Product[] {first, second, third, fourth};
         doReturn(returned).when(repository).findAll();
 
         manager = new ProductManager(repository);
 
         Product[] actual = manager.searchBy(text);
-        Product[] expected  = new Product[] {first};
+        Product[] expected  = new Product[] {first, third};
 
         assertArrayEquals(expected, actual);
     }
@@ -47,20 +49,20 @@ class ProductManagerTest {
       "Find Smartphone by name, Smartphone 2",
       "Find Smartphone by producer, Producer 2"})
     public void findSmartphoneSearchByTest(String testName, String text) {
-        Product[] returned = new Product[] {first, second};
+        Product[] returned = new Product[] {first, second, third, fourth};
         doReturn(returned).when(repository).findAll();
 
         manager = new ProductManager(repository);
 
         Product[] actual = manager.searchBy(text);
-        Product[] expected = new Product[] {second};
+        Product[] expected = new Product[] {second, fourth};
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
     public void findNothingSearchByTest() {
-        Product[] returned = new Product[] {first, second};
+        Product[] returned = new Product[] {first, second, third, fourth};
         doReturn(returned).when(repository).findAll();
 
         manager = new ProductManager(repository);
